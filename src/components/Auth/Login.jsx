@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 
-const Login = () => {
+const Login = ({handleLogin}) => {
 
+  
   const [email, setEmail] = useState('')
   const [passwrod, setPassword] = useState('')
-
+  
   //Handling the from submit feature:
   const SubmiHandler = (e) => {
     e.preventDefault()
     console.log("submitted successfully!")
     console.log("Email is:",email)
     console.log("Password is:",passwrod)
+    handleLogin(email,passwrod)
     setEmail('')
     setPassword('')
   }
