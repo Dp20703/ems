@@ -9,7 +9,7 @@ import { AuthContext } from './context/AuthProvider'
 const App = () => {
   //using the AuthContext for userData:
   const authData = useContext(AuthContext)
-  // console.log(authData.employees)
+  // console.log(authData.employees[1].Email)
   // console.log(authData.admin)
 
 
@@ -21,6 +21,8 @@ const App = () => {
 
   //set user type: Admin or Employee
   const [user, setUser] = useState(null)
+
+  //store the current logged employees's data ex: emp1 or emp2 or emp3 etc..
   const [loggedInUserData, setLoggedInUserData] = useState(null)
 
   // useEffect(() => {
@@ -32,6 +34,7 @@ const App = () => {
   //   }
   // }, [authData])
 
+
   //Check Crendentials like email and Password and set User:
   const handleLogin = (email, password) => {
     if (email == 'admin@me.com' && password == '123') {
@@ -40,14 +43,15 @@ const App = () => {
       localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }))
     }
     else if (authData) {
-      // const employee = authData.employees.find((e) => email == e.email && password == e.password)
+      // console.log(email)
+      const employee = authData.employees.find((e) => email == e.Email && password == e.Password)
       // console.log(employee)
-      // if (employee) {
-      console.log('employee')
-      setUser('employee')
-      // setLoggedInUserData(employee)
-      localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee' }))
-      // }
+      if (employee) {
+        console.log('employee')
+        setUser('employee')
+        setLoggedInUserData(employee)
+        localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee' }))
+      }
 
     }
     else {
@@ -58,7 +62,7 @@ const App = () => {
   return (
     <>
       {!user ? <Login handleLogin={handleLogin} /> : ''}
-      {user == 'admin' ? <AdminDashboard /> : (user == 'employee' ? <EmployeeDashboard /> : '')}
+      {user == 'admin' ? <AdminDashboard /> : (user == 'employee' ? <EmployeeDashboard  /> : '')}
     </>
   )
 }
