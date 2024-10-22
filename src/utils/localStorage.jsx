@@ -4,7 +4,7 @@ const employees = [
     {
         "Id": 1,
         "FirstName": "Aarav",
-        "Email": "employee1@example.com",
+        "Email": "emp1@ac.com",
         "Password": "123",
         "Tasks": [
             {
@@ -43,7 +43,7 @@ const employees = [
     {
         "Id": 2,
         "FirstName": "Vivaan",
-        "Email": "employee2@example.com",
+        "Email": "emp2@ac.com",
         "Password": "123",
         "Tasks": [
             {
@@ -77,12 +77,12 @@ const employees = [
                 "Failed": true
             }
         ],
-        "taskCount": { "Active": 2, "NewTask": 1, "Completed": 1, "Failed": 1 }
+        "taskCount": { "Active": 4, "NewTask": 2, "Completed": 1, "Failed": 0 }
     },
     {
         "Id": 3,
         "FirstName": "Reyansh",
-        "Email": "employee3@example.com",
+        "Email": "emp3@ac.com",
         "Password": "123",
         "Tasks": [
             {
@@ -116,12 +116,12 @@ const employees = [
                 "Failed": true
             }
         ],
-        "taskCount": { "Active": 2, "NewTask": 1, "Completed": 1, "Failed": 1 }
+        "taskCount": { "Active": 3, "NewTask": 2, "Completed": 2, "Failed": 1 }
     },
     {
         "Id": 4,
         "FirstName": "Aanya",
-        "Email": "employee4@example.com",
+        "Email": "emp4@ac.com",
         "Password": "123",
         "Tasks": [
             {
@@ -155,12 +155,12 @@ const employees = [
                 "Failed": true
             }
         ],
-        "taskCount": { "Active": 2, "NewTask": 1, "Completed": 1, "Failed": 1 }
+        "taskCount": { "Active": 3, "NewTask": 5, "Completed": 4, "Failed": 2 }
     },
     {
         "Id": 5,
         "FirstName": "Diya",
-        "Email": "employee5@example.com",
+        "Email": "emp5@ac.com",
         "Password": "123",
         "Tasks": [
             {
@@ -194,7 +194,7 @@ const employees = [
                 "Failed": true
             }
         ],
-        "taskCount": { "Active": 2, "NewTask": 1, "Completed": 1, "Failed": 1 }
+        "taskCount": { "Active": 4, "NewTask": 1, "Completed": 2, "Failed": 1 }
     }
 ];
 
@@ -202,7 +202,8 @@ const employees = [
 const admin = [
     {
         "Id": 1,
-        "Email": "admin@example.com",
+        "FirstName":"admin",
+        "Email": "admin@ac.com",
         "Password": "123"
     }
 ];
