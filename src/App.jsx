@@ -25,24 +25,23 @@ const App = () => {
   //store the current logged employees's data ex: emp1 or emp2 or emp3 etc..
   const [loggedInUserData, setLoggedInUserData] = useState(null)
 
-  // useEffect(() => {
-  //   if (authData) {
-  //     // const loggedInUser = localStorage.getItem('loggedInUser')
-  //     // const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
-  //     // console.log(loggedInUser)
-  //     // console.log(loggedInUser.role)
-  //     // setUser(loggedInUser.role)
-  //     // console.log(user)
-  //     // if (loggedInUser) {
-  //     // setUser(loggedInUser.role)
-  //     // console.log(user)
-  //     // }
-  //   }
-  // }, [authData])
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('loggedInUser')
+    // console.log(loggedInUser)
+    if (loggedInUser) {
+      const userData = JSON.parse(localStorage.getItem('loggedInUser'))
+      setUser(userData.role)
+      setLoggedInUserData(userData.data)
+      // console.log(userData)
+      console.log(userData.role)
+      // console.log(userData.data)
+    }
+
+  }, [])
 
 
   //Check Crendentials like email and Password and set User:
-  
+
   const handleLogin = (email, password) => {
     if (email == 'admin@ac.com' && password == '123') {
       // console.log('admin')
@@ -60,7 +59,7 @@ const App = () => {
         console.log('employee')
         setUser('employee')
         setLoggedInUserData(employee)
-        localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee' }))
+        localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee', data: employee }))
       }
 
     }
