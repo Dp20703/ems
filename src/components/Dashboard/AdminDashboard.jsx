@@ -3,13 +3,13 @@ import Header from '../../others/Header'
 import CreateTask from '../../others/CreateTask'
 import AllTask from '../../others/AllTask'
 
-const AdminDashboard = ({data}) => {
-  // const data = {
-  //   "FirstName": "Admin",
-  // }
+const AdminDashboard = (props) => {
+  const data = {
+    "FirstName": "Admin",
+  }
   return (
     <div className='h-screen w-full p-7'>
-      <Header data={data} />
+      <Header changeUser={props.changeUser} data={data} />
       <CreateTask />
       <AllTask />
     </div>

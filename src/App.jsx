@@ -8,9 +8,9 @@ import { AuthContext } from './context/AuthProvider'
 
 const App = () => {
   //using the AuthContext for userData:
-  const authData = useContext(AuthContext)
-  // console.log(authData.employees[1].Email)
-  // console.log(authData.admin)
+  const [userData, setUserData] = useContext(AuthContext)
+  // console.log(userData.employees[1].Email)
+  // console.log(userData)
 
 
   // set and get data in LocalStorage:
@@ -33,15 +33,12 @@ const App = () => {
       setUser(userData.role)
       setLoggedInUserData(userData.data)
       // console.log(userData)
-      console.log(userData.role)
       // console.log(userData.data)
     }
-
   }, [])
 
 
   //Check Crendentials like email and Password and set User:
-
   const handleLogin = (email, password) => {
     if (email == 'admin@ac.com' && password == '123') {
       // console.log('admin')
@@ -51,27 +48,28 @@ const App = () => {
       // setLoggedInUserData(admin)
       localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }))
     }
-    else if (authData) {
+    else {
+      // console.log(userData)
       // console.log(email)
-      const employee = authData.employees.find((e) => email == e.Email && password == e.Password)
-      // console.log(employee)
+      const employee = userData.find((e) => email == e.Email && password == e.Password)
+      console.log(employee)
       if (employee) {
         console.log('employee')
         setUser('employee')
         setLoggedInUserData(employee)
         localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee', data: employee }))
       }
+      else {
+        alert("Invalid Crendentials")
+      }
+    }
 
-    }
-    else {
-      alert("Invalid Crendentials")
-    }
   }
 
   return (
     <>
       {!user ? <Login handleLogin={handleLogin} /> : ''}
-      {user == 'admin' ? <AdminDashboard data={loggedInUserData} /> : (user == 'employee' ? <EmployeeDashboard data={loggedInUserData} /> : '')}
+      {user == 'admin' ? <AdminDashboard changeUser={setUser} /> : (user == 'employee' ? <EmployeeDashboard changeUser={setUser} data={loggedInUserData} /> : '')}
     </>
   )
 }
