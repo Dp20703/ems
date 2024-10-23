@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
         const { employees, admin } = getLocalStorage()
         // console.log({employees})
         setUserData(employees)
-    }, [])
+    }, [setUserData])
     // console.log(userData)
     return (
         <div>
