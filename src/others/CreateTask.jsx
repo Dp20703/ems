@@ -33,11 +33,11 @@ const CreateTask = () => {
         });
         setUserData(data)
         console.log(data)
-        // setTitle('')
-        // setDescription('')
-        // setDate('')
-        // setAssignTo('')
-        // setCategory('')
+        setTitle('')
+        setDescription('')
+        setDate('')
+        setAssignTo('')
+        setCategory('')
         console.log("Task created")
     }
     return (
