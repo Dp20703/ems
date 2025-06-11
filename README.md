@@ -5,6 +5,6 @@ for admin dashboard
 And
 Login: emp1@ac.com 
 emp2,em3,em4,em5
-for employeesdashboard
+for all employees dashboard
 Pass: 123
 Same for both
