@@ -1,4 +1,6 @@
 const userModel = require('../models/user.model')
+
+//register user
 module.exports.createUser = async (req, res) => {
     const { firstName, email, password } = req.body;
 
@@ -24,6 +26,7 @@ module.exports.createUser = async (req, res) => {
     }
 }
 
+//login user
 module.exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -50,4 +53,22 @@ module.exports.loginUser = async (req, res) => {
     //return the response
     res.status(200).json({ success: true, token, user });
 
+}
+
+//get user profile
+module.exports.getUserProfile = async (req, res) => {
+    res.status(200).json({ success: true, data: req.user })
+}
+
+//logout user
+module.exports.logoutUser = async (req, res) => {
+    try {
+        // Clear token cookie
+        res.clearCookie('token');
+
+        return res.status(200).json({ message: "User logout successful" });
+    } catch (error) {
+        console.error("Logout error:", error);
+        return res.status(500).json({ message: "Error logging out", error });
+    }
 }
