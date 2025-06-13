@@ -14,7 +14,7 @@ const AllTask = () => {
                 <h5 className='w-1/5 text-lg font-medium'>Failed</h5>
             </div>
             <div>
-                {userData.map((elem, idx) => {
+                {userData?.map((elem, idx) => {
                     // console.log(elem.FirstName)
                     return <div key={idx} className='mb-2 py-2 px-4 rounded flex justify-between items-center border-2 border-emerald-400'>
                         <h2 className='w-1/5 text-lg font-medium'>{elem.FirstName}</h2>

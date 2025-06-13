@@ -8,7 +8,7 @@ const TaskList = ({ data }) => {
     // console.log(data)
     return (
         <div id='tasklist' className='h-[55%] w-full mt-10 py-5 flex justify-start items-center gap-5 flex-nowrap overflow-x-auto'>
-            {data.Tasks.map((elem, idx) => {
+            {data?.Tasks.map((elem, idx) => {
                 console.log(elem)
                 if (elem.NewTask) {
                     return <NewTask key={idx} data={elem}/>
