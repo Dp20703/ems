@@ -4,14 +4,18 @@ import Signup from "./pages/Signup";
 import Login from "./components/Auth/Login";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import EmployeeDashboard from "./components/Dashboard/EmployeeDashboard";
+import { ToastContainer } from "react-toastify";
+import Logout from "./pages/Logout";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<StaticData />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/admin_dashboard" element={<AdminDashboard />} />
         <Route path="/employee_dashboard" element={<EmployeeDashboard />} />
       </Routes>

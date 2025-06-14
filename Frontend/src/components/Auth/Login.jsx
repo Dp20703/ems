@@ -1,61 +1,69 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
+import Api from "../../utils/Api";
+import { useAuth } from "../../context/AuthContext";
 
-const Login = ({ handleLogin }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = () => {
+  const API = Api();
+  const [data, setData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const { setUser } = useAuth();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
 
   //Handling the from submit feature:
-  const SubmiHandler = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("submitted successfully!");
-    console.log("Email is:", email);
-    console.log("Password is:", password);
-    if (email === "admin@ac.com" && password === "123") {
-      navigate("/admin_dashboard");
-    } else if (email == "emp1@ac.com" && password == "123") {
-      navigate("/employee_dashboard");
-    } else {
-      alert("Invalid Crendentials");
+    if (data.email === "admin@ac.com" && data.password === "123456") {
+      return navigate("/admin_dashboard");
     }
-    handleLogin(email, password);
-    setEmail("");
-    setPassword("");
+    try {
+      const res = await axios.post(`${API}/user/login`, data);
+      console.log("api:", Api);
+      console.log("res:", res);
+      localStorage.setItem("token", res.data.token);
+      setUser(res.data.user);
+      toast.success("Login successfully", {
+        position: "top-right",
+        autoClose: 1000,
+        onClose: () => {
+          navigate("/employee_dashboard");
+        },
+      });
+    } catch (error) {
+      console.log("Error:", error);
+      setData({ email: "", password: "" });
+    }
   };
   return (
     <div className=" h-screen w-screen flex items-center justify-center">
       <div className="border-2 border-emerald-600 rounded-xl  px-16 py-8">
         <form
-          onSubmit={(e) => {
-            SubmiHandler(e);
-          }}
+          onSubmit={handleSubmit}
           className="flex flex-col items-center justify-center"
         >
           <h1 className="mb-5 text-3xl font-medium">Log in</h1>
           <input
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            value={email}
+            onChange={handleChange}
+            value={data.email}
             required
             className=" bg-transparent border-2 border-emerald-600 py-3 px-4 rounded-full outline-none placeholder:text-gray-400 text-xl hover:border-emerald-300"
             type="email"
-            name=""
-            id=""
+            name="email"
             placeholder="Enter your email"
           />
           <input
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            value={password}
+            onChange={handleChange}
+            value={data.password}
             required
             className=" bg-transparent border-2 border-emerald-600 py-3 px-4 rounded-full outline-none placeholder:text-gray-400 text-xl mt-3 hover:border-emerald-300"
             type="password"
-            name=""
-            id=""
+            name="password"
             placeholder="Enter your password"
           />
           <button className="border-none bg-emerald-600 py-3 px-4 rounded-full outline-none placeholder:text-gray-400 text-xl mt-5">

@@ -3,15 +3,15 @@ import Header from "../../others/Header";
 import CreateTask from "../../others/CreateTask";
 import AllTask from "../../others/AllTask";
 
-const AdminDashboard = (props) => {
+const AdminDashboard = () => {
   const data = {
     FirstName: "Admin",
   };
   return (
     <div className="h-screen w-full p-7">
-      <Header changeUser={props.changeUser} data={data} />
-      <CreateTask />
-      <AllTask />
+      <Header data={data} />
+      {/* <CreateTask /> */}
+      {/* <AllTask />  */}
     </div>
   );
 };

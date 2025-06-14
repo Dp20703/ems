@@ -8,14 +8,17 @@ module.exports.createUser = async (req, res) => {
         // console.log('All fields are required');
         res.status(400).json({ message: 'All fields are required!' })
     }
+
     const isUserAlreadyExists = await userModel.findOne({ email });
     if (isUserAlreadyExists) {
         res.status(409).json({ message: 'email is already exists!' })
     }
 
     const hashedpassword = await userModel.hashPassword(password)
+
     try {
         const user = await userModel.create({ firstName, email, password: hashedpassword });
+
         const token = await user.generateAuthToken(user._id);
 
         res.status(200).json({ success: true, data: user, token });
