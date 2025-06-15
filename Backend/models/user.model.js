@@ -2,58 +2,12 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const taskSchmea = new mongoose.Schema({
-  title: {
-    type: String,
-    required: [true, "Task name is required."],
-    trim: true,
-    minlength: [3, "Task name must be at least 3 characters long."],
-    maxlength: [20, "Task name cannot be more than 20 characters long."],
-  },
-  description: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  date: {
-    type: Date,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  active: {
-    type: Boolean,
-    default: false,
-  },
-  newTask: {
-    type: Boolean,
-    default: false,
-  },
-  completed: {
-    type: Boolean,
-    default: false,
-  },
-  failed: {
-    type: Boolean,
-    default: false,
-  },
-});
-
 const userSchema = new mongoose.Schema({
-  //   profilePic: {
-  //     type: String,
-  //   },
   firstName: {
     type: String,
-    required: [true, "firstName is required."],
+    required: [true, "First name is required."],
     trim: true,
-    // minlength: [3, "firstName must be at least 3 characters long."],
-    // maxlength: [20, "firstName cannot be more than 20 characters long."],
   },
-
   email: {
     type: String,
     required: [true, "Email is required."],
@@ -65,41 +19,31 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Password is required."],
-    // minlength: [6, "Password must be at least 6 characters long."],
     select: false,
   },
 
   tasks: [
     {
-      type: [taskSchmea],
-      default: [],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Task",
     },
   ],
-  taskCount: [
-    {
-      NewTask: {
-        type: Number,
-        default: 0,
-      },
-      Active: {
-        type: Number,
-        default: 0,
-      },
-      Completed: {
-        type: Number,
-        default: 0,
-      },
-      Failed: {
-        type: Number,
-        default: 0,
-      },
-    },
-  ],
+
+  taskCount: {
+    NewTask: { type: Number, default: 0 },
+    Active: { type: Number, default: 0 },
+    Completed: { type: Number, default: 0 },
+    Failed: { type: Number, default: 0 },
+  },
+
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+module.exports = mongoose.model("User", userSchema);
+
 
 //for generating authetication token usingn jwt:
 userSchema.methods.generateAuthToken = function () {

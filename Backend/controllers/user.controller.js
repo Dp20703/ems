@@ -79,7 +79,7 @@ module.exports.logoutUser = async (req, res) => {
 // find users
 module.exports.findUsers = async (req, res) => {
     try {
-        const users = await userModel.find({}, { firstName: 1 });
+        const users = await userModel.find();
         console.log("Users:", users);
         res.status(200).json({ success: true, users });
     } catch (err) {
