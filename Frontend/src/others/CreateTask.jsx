@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { FindUsers } from "../utils/FindUsers";
 
 const CreateTask = () => {
-  const { user, setUser } = useAuth();
-  const userData = user;
-  const setUserData = setUser;
-  console.log("userData:", userData);
+  const users = FindUsers();
+  console.log("users:", users);
+  const [userData, setUserData] = useState("");
 
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
@@ -84,19 +84,27 @@ const CreateTask = () => {
             />
           </div>
           <div>
-            <h3 className="text-smtext-gray-300 mb-1.5 ">Assign to</h3>
-            <input
-              onChange={(e) => {
-                setAssignTo(e.target.value);
-              }}
+            <h3 className="text-sm text-gray-300 mb-1.5">Assign to</h3>
+            <select
+              onChange={(e) => setAssignTo(e.target.value)}
               value={assignTo}
-              type="text"
-              className="text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4"
-              name=""
-              id=""
-              placeholder="emloyee name  "
-            />
+              className="text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-2"
+            >
+              <option value="" disabled className="text-gray-400">
+                Select employee
+              </option>
+              {users?.map((user, index) => (
+                <option
+                  key={index}
+                  value={user.firstName}
+                  className="text-white bg-black"
+                >
+                  {user.firstName}
+                </option>
+              ))}
+            </select>
           </div>
+
           <div>
             <h3 className="text-smtext-gray-300 mb-1.5 ">Category</h3>
             <input

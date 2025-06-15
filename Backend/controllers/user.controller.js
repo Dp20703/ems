@@ -5,29 +5,29 @@ module.exports.createUser = async (req, res) => {
     const { firstName, email, password } = req.body;
 
     if (!firstName || !email || !password) {
-        // console.log('All fields are required');
-        res.status(400).json({ message: 'All fields are required!' })
+        return res.status(400).json({ message: 'All fields are required!' });
     }
 
     const isUserAlreadyExists = await userModel.findOne({ email });
     if (isUserAlreadyExists) {
-        res.status(409).json({ message: 'email is already exists!' })
+        return res.status(409).json({ message: 'Email already exists!' });
     }
 
-    const hashedpassword = await userModel.hashPassword(password)
-
     try {
-        const user = await userModel.create({ firstName, email, password: hashedpassword });
+        const hashedPassword = await userModel.hashPassword(password);
+
+        const user = await userModel.create({ firstName, email, password: hashedPassword });
 
         const token = await user.generateAuthToken(user._id);
 
-        res.status(200).json({ success: true, data: user, token });
+        return res.status(200).json({ success: true, data: user, token });
 
     } catch (error) {
-        console.log("Error is register_user controller:", error);
-        res.status(500).json({ success: false, error: error.message });
+        console.error("Error in register_user controller:", error);
+        return res.status(500).json({ success: false, error: error.message });
     }
-}
+};
+
 
 //login user
 module.exports.loginUser = async (req, res) => {
@@ -75,3 +75,16 @@ module.exports.logoutUser = async (req, res) => {
         return res.status(500).json({ message: "Error logging out", error });
     }
 }
+
+// find users
+module.exports.findUsers = async (req, res) => {
+    try {
+        const users = await userModel.find({}, { firstName: 1 });
+        console.log("Users:", users);
+        res.status(200).json({ success: true, users });
+    } catch (err) {
+        console.error("Error fetching users:", err);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+

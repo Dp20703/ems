@@ -15,5 +15,8 @@ router.get('/profile', authMiddeware.authUser, userController.getUserProfile);
 // /user/logout
 router.get('/logout', authMiddeware.authUser, userController.logoutUser);
 
+// /user/find_users
+router.get('/find_users', userController.findUsers)
+
 
 module.exports = router;

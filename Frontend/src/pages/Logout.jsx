@@ -7,7 +7,7 @@ import { API_KEY } from "../utils/Api";
 const Logout = () => {
   console.log("User Logout page loading..");
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     axios
       .get(`${API_KEY}/user/logout`, {
