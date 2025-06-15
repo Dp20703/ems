@@ -42,9 +42,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("User", userSchema);
-
-
 //for generating authetication token usingn jwt:
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
@@ -66,6 +63,6 @@ userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const user = mongoose.model("user", userSchema);
+const user = mongoose.model("User", userSchema);
 
 module.exports = user;

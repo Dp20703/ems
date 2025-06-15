@@ -6,7 +6,7 @@ import FailedTask from "./FailedTask";
 
 const TaskList = ({ data }) => {
   console.log("data:", data);
-
+  console.log("taskCount:", data?.taskCount);
   return (
     <div
       id="tasklist"
@@ -15,19 +15,19 @@ const TaskList = ({ data }) => {
       {data?.tasks?.length == 0 ? (
         <p className="text-3xl m-auto text-red-500 ">No tasks😊</p>
       ) : (
-        data?.tasks?.map((elem, idx) => {
-          console.log(elem);
-          if (elem?.NewTask) {
-            return <NewTask key={idx} data={elem} />;
+        data?.tasks?.map((task, idx) => {
+          console.log("task:", task);
+          if (task?.status == "NewTask") {
+            return <NewTask task={task} />;
           }
-          if (elem?.Active) {
-            return <AcceptTask key={idx} data={elem} />;
+          if (task?.status == "AcceptTask") {
+            return <AcceptTask key={idx} task={task} />;
           }
-          if (elem?.Completed) {
-            return <CompleteTask key={idx} data={elem} />;
+          if (task?.Completed) {
+            return <CompleteTask key={idx} data={task} />;
           }
-          if (elem?.Failed) {
-            return <FailedTask key={idx} data={elem} />;
+          if (task?.Failed) {
+            return <FailedTask key={idx} data={task} />;
           }
         })
       )}

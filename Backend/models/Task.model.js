@@ -29,7 +29,7 @@ const taskSchema = new mongoose.Schema({
     },
     assignedTo: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User", // Refers to the userSchema
+        ref: "User",
         required: true,
     },
 }, { timestamps: true });

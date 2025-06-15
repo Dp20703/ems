@@ -1,70 +1,63 @@
 import { useState } from "react";
 import { FindUsers } from "../utils/FindUsers";
+import axios from "axios";
+import { API_KEY } from "../utils/Api";
 
 const CreateTask = () => {
   const users = FindUsers();
   console.log("users:", users);
-  const [userData, setUserData] = useState("");
 
-  const [Title, setTitle] = useState("");
-  const [Description, setDescription] = useState("");
-  const [Date, setDate] = useState("");
-  const [assignTo, setAssignTo] = useState("");
-  const [Category, setCategory] = useState("");
+  const [newTask, setNewTask] = useState({
+    title: "",
+    description: "",
+    date: "",
+    category: "",
+    assignedTo: "",
+  });
 
-  const [newTask, setNewTask] = useState({});
+  //handle Change in data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewTask((prev) => ({ ...prev, [name]: value }));
+  };
 
-  //handle the submit data:
+  //handle the submit form
   const submitHandler = (e) => {
     e.preventDefault();
-    setNewTask({
-      Title,
-      Description,
-      Date,
-      Category,
-      Active: false,
-      NewTask: true,
-      Completed: false,
-      Failed: false,
-    });
-    console.log(newTask);
 
-    const data = userData;
-    // console.log(data)
+    console.log("newTask:", newTask);
 
-    data?.forEach((elem) => {
-      // console.log(elem.taskCount.NewTask)
-      if (elem.FirstName == assignTo) {
-        elem.Tasks.push(newTask);
-        elem.taskCount.NewTask = elem.taskCount.NewTask + 1;
-        // console.log(elem.Tasks)
-      }
-    });
-    setUserData(data);
-    console.log(data);
-    setTitle("");
-    setDescription("");
-    setDate("");
-    setAssignTo("");
-    setCategory("");
+    axios
+      .post(`${API_KEY}/task/create`, newTask)
+      .then((res) => {
+        console.log("res:", res);
+      })
+      .catch((err) => {
+        console.log("err:", err);
+      });
+
     console.log("Task created");
+    setNewTask({
+      title: "",
+      description: "",
+      date: "",
+      category: "",
+      assignedTo: "",
+    });
   };
   return (
     <div className="bg-[#1c1c1c] rounded p-5 mt-5">
       <form
-        onSubmit={(e) => {
-          submitHandler(e);
-        }}
+        onSubmit={submitHandler}
         className="flex items-start justify-between flex-wrap w-full"
       >
         <div className="w-1/2">
           <div>
             <h3 className="text-smtext-gray-300 mb-1.5 ">Task Title</h3>
             <input
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
-              value={Title}
+              onChange={handleChange}
+              value={newTask.title}
+              name="title"
               type="text"
               className="text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4"
               placeholder="Make a UI design"
@@ -73,30 +66,28 @@ const CreateTask = () => {
           <div>
             <h3 className="text-smtext-gray-300 mb-1.5 ">Date</h3>
             <input
-              onChange={(e) => {
-                setDate(e.target.value);
-              }}
-              value={Date}
+              onChange={handleChange}
+              value={newTask.date}
               type="date"
+              name="date"
               className="text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4"
-              name=""
-              id=""
             />
           </div>
           <div>
             <h3 className="text-sm text-gray-300 mb-1.5">Assign to</h3>
             <select
-              onChange={(e) => setAssignTo(e.target.value)}
-              value={assignTo}
+              onChange={handleChange}
+              value={newTask.assignedTo}
+              name="assignedTo"
               className="text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-2"
             >
               <option value="" disabled className="text-gray-400">
                 Select employee
               </option>
-              {users?.map((user, index) => (
+              {users?.map((user) => (
                 <option
-                  key={index}
-                  value={user.firstName}
+                  key={user._id}
+                  value={user._id}
                   className="text-white bg-black"
                 >
                   {user.firstName}
@@ -108,14 +99,11 @@ const CreateTask = () => {
           <div>
             <h3 className="text-smtext-gray-300 mb-1.5 ">Category</h3>
             <input
-              onChange={(e) => {
-                setCategory(e.target.value);
-              }}
-              value={Category}
+              onChange={handleChange}
+              value={newTask.category}
               type="text"
               className="text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4"
-              name=""
-              id=""
+              name="category"
               placeholder="design , dev ,etc... "
             />
           </div>
@@ -123,12 +111,11 @@ const CreateTask = () => {
         <div className="w-1/2">
           <h3 className="text-smtext-gray-300 mb-1.5 ">Description</h3>
           <textarea
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            value={Description}
+            onChange={handleChange}
+            value={newTask.description}
             className="h-44 w-full text-sm py-2 px-4 outline-none rounded bg-transparent border-[1px] border-gray-400 placeholder:text-gray-400"
             placeholder="Description about task"
+            name="description"
             rows="10"
             cols="30"
           ></textarea>

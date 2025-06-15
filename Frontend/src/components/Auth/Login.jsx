@@ -23,7 +23,6 @@ const Login = () => {
     }
     try {
       const res = await axios.post(`${API_KEY}/user/login`, data);
-      console.log("api:", Api);
       console.log("res:", res);
       localStorage.setItem("token", res.data.token);
       setUser(res.data.user);
@@ -35,12 +34,13 @@ const Login = () => {
         },
       });
     } catch (error) {
-      if (error.response.status === 404) {
+      console.log("Error: ", error);
+      if (error?.response?.status === 404) {
         toast.error("Invalid email or password.", {
           position: "top-right",
           autoClose: 1000,
         });
-      } else if (error.response.status === 400) {
+      } else if (error?.response?.status === 400) {
         toast.error("Please fill in all required fields.", {
           position: "top-right",
           autoClose: 1000,

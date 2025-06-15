@@ -4,6 +4,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const userRouter = require('./routes/user.routes');
+const taskRouter = require("./routes/task.routes");
 
 
 
@@ -19,5 +20,6 @@ app.get('/', function (req, res) {
 })
 
 app.use('/user', userRouter);
+app.use('/task', taskRouter);
 
 module.exports = app;
