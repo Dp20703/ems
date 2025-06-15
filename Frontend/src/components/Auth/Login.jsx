@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Api from "../../utils/Api";
+import { API_KEY } from "../../utils/Api";
 import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
-  const API = Api();
   const [data, setData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
   const { setUser } = useAuth();
@@ -23,7 +22,7 @@ const Login = () => {
       return navigate("/admin_dashboard");
     }
     try {
-      const res = await axios.post(`${API}/user/login`, data);
+      const res = await axios.post(`${API_KEY}/user/login`, data);
       console.log("api:", Api);
       console.log("res:", res);
       localStorage.setItem("token", res.data.token);
@@ -36,7 +35,22 @@ const Login = () => {
         },
       });
     } catch (error) {
-      console.log("Error:", error);
+      if (error.response.status === 404) {
+        toast.error("Invalid email or password.", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+      } else if (error.response.status === 400) {
+        toast.error("Please fill in all required fields.", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+      } else {
+        toast.error("Login Failed", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+      }
       setData({ email: "", password: "" });
     }
   };

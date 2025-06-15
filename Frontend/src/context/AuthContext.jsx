@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
-import Api from "../utils/Api";
+import { API_KEY } from "../utils/Api";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const API = Api();
+  console.log("inside authContext...");
   const [user, setUser] = useState(null);
 
   const [loading, setLoading] = useState(true);
@@ -20,16 +20,16 @@ export const AuthProvider = ({ children }) => {
     }
 
     axios
-      .get(`${API}/user/profile`, {
+      .get(`${API_KEY}/user/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        setUser(res.data);
+        setUser(res.data.user);
       })
       .catch((err) => {
-        // console.log("Error while fetching user from AuthContext:", err);
+        console.log("Error while fetching user from AuthContext:", err);
         localStorage.removeItem("token");
         setUser(null);
       })

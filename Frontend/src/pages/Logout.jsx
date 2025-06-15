@@ -2,14 +2,15 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Api from "../utils/Api";
+import { API_KEY } from "../utils/Api";
 
 const Logout = () => {
   console.log("User Logout page loading..");
   const navigate = useNavigate();
+  
   useEffect(() => {
     axios
-      .get(`${Api}/user/logout`, {
+      .get(`${API_KEY}/user/logout`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
