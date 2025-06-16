@@ -1,7 +1,10 @@
 import axios from "axios";
 import { API_KEY } from "../../utils/Api";
+import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const AcceptTask = ({ task }) => {
+  const { fetchUser } = useAuth();
   console.log("acceptTask:", task);
 
   const handleCompleteTask = async (taskId) => {
@@ -15,9 +18,23 @@ const AcceptTask = ({ task }) => {
           },
         }
       );
+      toast.success("Task completed successfully", {
+        position: "top-right",
+        autoClose: 1000,
+        onClose: () => {
+          fetchUser();
+        },
+      });
       console.log("Task Updated: ", data);
     } catch (err) {
       console.error(err);
+      toast.error("Failed to complete task", {
+        position: "top-right",
+        autoClose: 1000,
+        onClose: () => {
+          fetchUser();
+        },
+      });
     }
   };
   const handleFailedTask = async (taskId) => {
@@ -27,9 +44,23 @@ const AcceptTask = ({ task }) => {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      toast.success("Task failed successfully", {
+        position: "top-right",
+        autoClose: 1000,
+        onClose: () => {
+          fetchUser();
+        },
+      });
       console.log("Task Updated: ", data);
     } catch (err) {
       console.error(err);
+      toast.error("Failed to fail task", {
+        position: "top-right",
+        autoClose: 1000,
+        onClose: () => {
+          fetchUser();
+        },
+      });
     }
   };
   return (

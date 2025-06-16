@@ -11,14 +11,13 @@ export const AuthProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchUser = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
       setLoading(false);
       return;
     }
-
     axios
       .get(`${API_KEY}/user/profile`, {
         headers: {
@@ -36,10 +35,13 @@ export const AuthProvider = ({ children }) => {
       .finally(() => {
         setLoading(false);
       });
+  };
+  useEffect(() => {
+    fetchUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading }}>
+    <AuthContext.Provider value={{ user, setUser, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );

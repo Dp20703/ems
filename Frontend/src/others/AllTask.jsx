@@ -1,10 +1,5 @@
-import { useAuth } from "../context/AuthContext";
-import { FindUsers } from "../utils/FindUsers";
-
-const AllTask = () => {
-  const users = FindUsers();
+const AllTask = ({ users }) => {
   console.log("users:", users);
-
   return (
     <div id="alltask" className="bg-[#1c1c1c] mt-5 p-5 rounded">
       <div className="bg-red-500 mb-4 py-2 px-4 rounded flex justify-between">

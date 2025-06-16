@@ -1,12 +1,8 @@
 import { useState } from "react";
-import { FindUsers } from "../utils/FindUsers";
 import axios from "axios";
 import { API_KEY } from "../utils/Api";
-
-const CreateTask = () => {
-  const users = FindUsers();
-  console.log("users:", users);
-
+import { toast } from "react-toastify";
+const CreateTask = ({ users }) => {
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
@@ -31,9 +27,17 @@ const CreateTask = () => {
       .post(`${API_KEY}/task/create`, newTask)
       .then((res) => {
         console.log("res:", res);
+        toast.success("Task created successfully", {
+          position: "top-right",
+          autoClose: 1000,
+        });
       })
       .catch((err) => {
         console.log("err:", err);
+        toast.error("Failed to create task", {
+          position: "top-right",
+          autoClose: 1000,
+        });
       });
 
     console.log("Task created");
