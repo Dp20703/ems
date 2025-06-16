@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   console.log("inside authContext...");
   const [user, setUser] = useState(null);
+  const [users, setUsers] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -36,12 +37,33 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
       });
   };
+
+  console.log("inside authContext");
+  const fetchAllUsers = async () => {
+    console.log("inside fetchAllUsers");
+    axios
+      .get(`${API_KEY}/user/find_users`)
+      .then((res) => {
+        setUsers(res.data.users);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
+
   useEffect(() => {
     fetchUser();
+    fetchAllUsers();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, fetchUser }}>
+    <AuthContext.Provider
+      value={{ user, setUser, fetchUser, users, fetchAllUsers }}
+    >
       {children}
     </AuthContext.Provider>
   );

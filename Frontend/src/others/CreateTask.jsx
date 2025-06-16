@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { API_KEY } from "../utils/Api";
 import { toast } from "react-toastify";
-const CreateTask = ({ users }) => {
+const CreateTask = ({ users, fetchAllUsers }) => {
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
@@ -20,13 +20,12 @@ const CreateTask = ({ users }) => {
   //handle the submit form
   const submitHandler = (e) => {
     e.preventDefault();
-
     console.log("newTask:", newTask);
-
     axios
       .post(`${API_KEY}/task/create`, newTask)
       .then((res) => {
         console.log("res:", res);
+        fetchAllUsers();
         toast.success("Task created successfully", {
           position: "top-right",
           autoClose: 1000,
