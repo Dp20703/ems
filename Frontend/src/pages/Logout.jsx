@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { API_KEY } from "../utils/Api";
 
 const Logout = () => {
-  console.log("User Logout page loading..");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +17,6 @@ const Logout = () => {
       .then((response) => {
         if (response.status === 200) {
           localStorage.removeItem("token");
-          // console.log("User Logged out Successfully");
           toast.error("User Logged out Successfully", {
             position: "top-right",
             autoClose: 1000,
@@ -39,7 +37,8 @@ const Logout = () => {
           }
         }
       });
-  });
+  }, []);
+
   return <div className="text-center mt-5">Logout....</div>;
 };
 
