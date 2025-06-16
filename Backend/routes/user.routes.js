@@ -13,7 +13,7 @@ router.post('/login', userController.loginUser);
 router.get('/profile', authMiddeware.authUser, userController.getUserProfile);
 
 // /user/logout
-router.get('/logout', authMiddeware.authUser, userController.logoutUser);
+router.get('/logout', userController.logoutUser);
 
 // /user/find_users
 router.get('/find_users', userController.findUsers)

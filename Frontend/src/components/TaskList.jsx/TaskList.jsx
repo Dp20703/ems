@@ -20,14 +20,14 @@ const TaskList = ({ data }) => {
           if (task?.status == "NewTask") {
             return <NewTask task={task} />;
           }
-          if (task?.status == "AcceptTask") {
+          if (task?.status == "Active") {
             return <AcceptTask key={idx} task={task} />;
           }
-          if (task?.Completed) {
-            return <CompleteTask key={idx} data={task} />;
+          if (task?.status == "Completed") {
+            return <CompleteTask key={idx} task={task} />;
           }
-          if (task?.Failed) {
-            return <FailedTask key={idx} data={task} />;
+          if (task?.status == "Failed") {
+            return <FailedTask key={idx} task={task} />;
           }
         })
       )}
