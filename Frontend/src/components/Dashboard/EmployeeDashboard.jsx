@@ -12,7 +12,7 @@ const EmployeeDashboard = () => {
     <div className="h-screen bg-[#1c1c1c] p-10">
       <Header user={user} />
       <TaskListNumbers data={user} />
-      <TaskList data={user} /> 
+      <TaskList data={user} />
     </div>
   );
 };
