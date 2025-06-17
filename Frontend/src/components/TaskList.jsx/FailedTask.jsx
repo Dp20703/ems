@@ -3,7 +3,7 @@ import TaskCard from "./TaskCard";
 const FailedTask = ({ task }) => {
   console.log("failedTask:", task);
   return (
-    <div className="flex-shrink-0 w-[300px] h-auto bg-red-400 rounded-xl p-5">
+    <div className="flex-shrink-0 w-[300px] h-fit bg-red-400 rounded-xl p-5">
       <TaskCard task={task} />
 
       <div className="mt-5">

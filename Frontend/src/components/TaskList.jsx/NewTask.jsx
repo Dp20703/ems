@@ -38,18 +38,15 @@ const NewTask = ({ task }) => {
   };
 
   return (
-    <div className="flex-shrink-0 w-[300px] h-auto bg-blue-400 rounded-xl p-5">
-      <div>
-        <TaskCard task={task} />
-
-    <div className="mt-5 text-center">
-          <button
-            onClick={() => handleAcceptTask(task._id)}
-            className="rounded bg-zinc-800 py-2 px-2 text-sm w-1/2 hover:bg-zinc-950"
-          >
-            Accepte Task
-          </button>
-        </div>
+    <div className="flex-shrink-0 w-[300px] h-fit bg-blue-400 rounded-xl p-5">
+      <TaskCard task={task} />
+      <div className="mt-5 text-center">
+        <button
+          onClick={() => handleAcceptTask(task._id)}
+          className="rounded bg-zinc-800 py-2 px-2 text-sm w-1/2 hover:bg-zinc-950"
+        >
+          Accepte Task
+        </button>
       </div>
     </div>
   );

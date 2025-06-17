@@ -65,7 +65,7 @@ const AcceptTask = ({ task }) => {
     }
   };
   return (
-    <div className="flex-shrink-0 w-[300px] h-auto bg-yellow-400 rounded-xl p-5">
+    <div className="flex-shrink-0 w-[300px] h-fit bg-yellow-400 rounded-xl p-5">
       <TaskCard task={task} />
 
       <div className="flex mt-5 justify-between">
