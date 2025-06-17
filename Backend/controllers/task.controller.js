@@ -5,7 +5,10 @@ const userModel = require('../models/user.model');
 module.exports.createTask = async (req, res) => {
     try {
         const { title, description, date, category, assignedTo } = req.body;
-
+        
+        if (!title || !description || !date || !category || !assignedTo) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
         // Create task
         const task = await taskModel.create({
             title,

@@ -3,6 +3,7 @@ import axios from "axios";
 import { API_KEY } from "../utils/Api";
 import { toast } from "react-toastify";
 const CreateTask = ({ users, fetchAllUsers }) => {
+  
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
@@ -33,10 +34,18 @@ const CreateTask = ({ users, fetchAllUsers }) => {
       })
       .catch((err) => {
         console.log("err:", err);
-        toast.error("Failed to create task", {
-          position: "top-right",
-          autoClose: 1000,
-        });
+
+        if (err.response.status === 400)
+          return toast.error(err.response.data.message, {
+            position: "top-right",
+            autoClose: 1000,
+          });
+        else {
+          toast.error("Failed to create task", {
+            position: "top-right",
+            autoClose: 1000,
+          });
+        }
       });
 
     console.log("Task created");
@@ -47,6 +56,7 @@ const CreateTask = ({ users, fetchAllUsers }) => {
       category: "",
       assignedTo: "",
     });
+
   };
   return (
     <div className="bg-[#1c1c1c] rounded p-5 mt-5">

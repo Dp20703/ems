@@ -15,21 +15,32 @@ const TaskList = ({ data }) => {
       {data?.tasks?.length == 0 ? (
         <p className="text-3xl m-auto text-red-500 ">No tasks😊</p>
       ) : (
-        data?.tasks?.map((task, idx) => {
-          console.log("task:", task);
-          if (task?.status == "NewTask") {
-            return <NewTask task={task} />;
-          }
-          if (task?.status == "Active") {
-            return <AcceptTask key={idx} task={task} />;
-          }
-          if (task?.status == "Completed") {
-            return <CompleteTask key={idx} task={task} />;
-          }
-          if (task?.status == "Failed") {
-            return <FailedTask key={idx} task={task} />;
-          }
-        })
+        <div className="flex gap-3 justify-around flex-wrap h-full">
+          {/* New Task */}
+          {data?.tasks
+            ?.filter((task) => task?.status == "NewTask")
+            .map((task, idx) => {
+              return <NewTask key={idx} task={task} />;
+            })}
+          {/* Active Task */}
+          {data?.tasks
+            ?.filter((task) => task?.status == "Active")
+            .map((task, idx) => {
+              return <AcceptTask key={idx} task={task} />;
+            })}
+          {/* Completed Task */}
+          {data?.tasks
+            ?.filter((task) => task?.status == "Completed")
+            .map((task, idx) => {
+              return <CompleteTask key={idx} task={task} />;
+            })}
+          {/* Failed Task */}
+          {data?.tasks
+            ?.filter((task) => task?.status == "Failed")
+            .map((task, idx) => {
+              return <FailedTask key={idx} task={task} />;
+            })}
+        </div>
       )}
     </div>
   );
