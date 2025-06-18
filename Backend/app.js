@@ -20,12 +20,15 @@ app.use(morgan('dev'));
 app.use('/user', userRouter);
 app.use('/task', taskRouter);
 
-// === Serve Frontend ===
+// === Serve Vite Frontend from dist folder ===
 const distPath = path.join(__dirname, 'dist');
 app.use(express.static(distPath));
 
-// === React Router Fallback ===
-app.get('/*', (req, res) => {
+// === React Router fallback (safe) ===
+app.get('*', (req, res, next) => {
+    if (req.originalUrl.startsWith('/user') || req.originalUrl.startsWith('/task')) {
+        return next();
+    }
     res.sendFile(path.join(distPath, 'index.html'));
 });
 
