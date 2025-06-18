@@ -4,13 +4,14 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    outDir: '../backend/dist',
-    emptyOutDir: true,         
+ build: {
+  outDir: '../backend/dist',      // ✔ Output to backend's dist folder
+  emptyOutDir: true,              // ✔ Clean it before each build
+},
+resolve: {
+  alias: {
+    '@': path.resolve(__dirname, 'src'), // ✔ For cleaner imports
   },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'), 
-    },
-  },
+},
+
 });

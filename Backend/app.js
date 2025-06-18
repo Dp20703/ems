@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
@@ -19,17 +18,5 @@ app.use(morgan('dev'));
 // === API Routes ===
 app.use('/user', userRouter);
 app.use('/task', taskRouter);
-
-// === Serve Vite Frontend from dist folder ===
-const distPath = path.join(__dirname, 'dist');
-app.use(express.static(distPath));
-
-// === React Router fallback (safe) ===
-app.get('*', (req, res, next) => {
-    if (req.originalUrl.startsWith('/user') || req.originalUrl.startsWith('/task')) {
-        return next();
-    }
-    res.sendFile(path.join(distPath, 'index.html'));
-});
 
 module.exports = app;
