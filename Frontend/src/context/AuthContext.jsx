@@ -41,14 +41,17 @@ export const AuthProvider = ({ children }) => {
   console.log("inside authContext");
   const fetchAllUsers = async () => {
     console.log("inside fetchAllUsers");
+    setLoading(true);
     axios
       .get(`${API_KEY}/user/find_users`)
       .then((res) => {
         setUsers(res.data.users);
       })
       .catch((error) => {
+        setLoading(false);
         console.log("error: ", error);
-      });
+      })
+      .finally(setLoading(false));
   };
 
   useEffect(() => {
@@ -59,6 +62,10 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
     fetchAllUsers();
   }, []);
+
+  if(loading){
+    return <div>Loading...</div>
+  }
 
   return (
     <AuthContext.Provider

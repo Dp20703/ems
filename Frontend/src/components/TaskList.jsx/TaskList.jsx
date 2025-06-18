@@ -6,7 +6,15 @@ import FailedTask from "./FailedTask";
 
 const TaskList = ({ data }) => {
   console.log("data:", data);
-  
+
+  if (!data || !data?.tasks) {
+    return (
+      <div className="h-screen flex justify-center items-center text-white text-xl">
+        Loading Dashboard...
+      </div>
+    );
+  }
+
   return (
     <div
       id="tasklist"
