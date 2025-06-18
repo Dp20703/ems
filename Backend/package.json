@@ -6,6 +6,10 @@
  "scripts": {
   "start": "node server.js"
 },
+"engines": {
+  "node": "20.x",
+  "npm": ">=8.0.0"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
