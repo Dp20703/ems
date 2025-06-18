@@ -1,25 +1,37 @@
 const express = require('express');
-const app = express();
+const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+
 const userRouter = require('./routes/user.routes');
-const taskRouter = require("./routes/task.routes");
+const taskRouter = require('./routes/task.routes');
 
+const app = express();
 
-
+// === Middlewares ===
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 
-
-app.get('/', function (req, res) {
-    res.send("hello from / route")
-})
-
+// === API Routes ===
 app.use('/user', userRouter);
 app.use('/task', taskRouter);
+
+// === Serve Vite Frontend (Assumes frontend build is in "frontend/dist") ===
+const distPath = path.join(__dirname, 'frontend', 'dist');
+app.use(express.static(distPath));
+
+// === Base Route ===
+app.get('/', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+});
+
+// === React Router Fallback ===
+app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+});
 
 module.exports = app;
