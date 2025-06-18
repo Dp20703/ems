@@ -1,29 +1,38 @@
-import React from "react";
-
 const TaskListNumbers = ({ data }) => {
   return (
     <>
       <div className="flex gap-5 mt-10  justify-between text-center">
-        <div className="w-[45%] py-6 px-9 rounded-xl bg-blue-500">
-          <h2 className="text-3xl font-semibold">{data?.taskCount.NewTask}</h2>
-          <h3 className="text-xl font-medium ">New Task</h3>
-        </div>
-        <div className="w-[45%] py-6 px-9 rounded-xl bg-green-500">
-          <h2 className="text-3xl font-semibold">
-            {data?.taskCount.Completed}
-          </h2>
-          <h3 className="text-xl font-medium">Completed Task</h3>
-        </div>
-        <div className="w-[45%] py-6 px-9 rounded-xl bg-yellow-500">
-          <h2 className="text-3xl font-semibold">{data?.taskCount.Active}</h2>
-          <h3 className="text-xl font-medium">Accepted Task</h3>
-        </div>
-        <div className="w-[45%] py-6 px-9 rounded-xl bg-red-500">
-          <h2 className="text-3xl font-semibold">{data?.taskCount.Failed}</h2>
-          <h3 className="text-xl font-medium">Failed Task</h3>
-        </div>
+        <TaskListNumber
+          title="New Task"
+          count={data?.taskCount.NewTask}
+          color="blue"
+        />
+        <TaskListNumber
+          title="Completed Task"
+          count={data?.taskCount.Completed}
+          color="green"
+        />
+        <TaskListNumber
+          title="Accepted Task"
+          count={data?.taskCount.Active}
+          color="yellow"
+        />
+        <TaskListNumber
+          title="Failed Task"
+          count={data?.taskCount.Failed}
+          color="red"
+        />
       </div>
     </>
+  );
+};
+
+const TaskListNumber = ({ title, count, color }) => {
+  return (
+    <div className={`w-[45%] py-6 px-9 rounded-xl bg-${color}-500 hover:bg-${color}-600`}>
+      <h2 className="text-3xl font-semibold">{count}</h2>
+      <h3 className="text-xl font-medium">{title}</h3>
+    </div>
   );
 };
 

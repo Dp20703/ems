@@ -8,8 +8,10 @@ const AdminDashboard = () => {
   const { users, fetchAllUsers } = useAuth();
   console.log("users:", users);
 
+  document.title = "Admin's Dashboard";
+
   return (
-    <div className="h-screen w-full p-7">
+    <div className="h-[#dvh] w-full p-7">
       <Header user={data} />
       <CreateTask users={users} fetchAllUsers={fetchAllUsers} />
       <AllTask users={users} />

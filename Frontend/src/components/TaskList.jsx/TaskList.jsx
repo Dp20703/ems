@@ -6,11 +6,11 @@ import FailedTask from "./FailedTask";
 
 const TaskList = ({ data }) => {
   console.log("data:", data);
-  console.log("taskCount:", data?.taskCount);
+  
   return (
     <div
       id="tasklist"
-      className="h-[55%] w-full mt-10 py-5 flex justify-start items-center gap-5 flex-nowrap overflow-x-auto"
+      className="w-full my-8 py-3 flex justify-start items-center gap-5 flex-nowrap overflow-scroll"
     >
       {data?.tasks?.length == 0 ? (
         <p className="text-3xl m-auto text-red-500 ">No tasks😊</p>
