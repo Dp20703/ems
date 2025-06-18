@@ -53,7 +53,7 @@ const AllTask = ({ users }) => {
               {expandedUserId === user._id && (
                 <div className="absolute top-3 bottom-0 gap-5 justify-center flex-wrap left-0 py-2 px-3 flex bg-[#1c1c1c] mx-8 my-5 rounded-xl border-2 w-[95dvw] border-gray-400 backdrop-blur-2xl backdrop-brightness-0">
                   <span
-                    className="text-black text-3xl right-4 top-2 absolute cursor-pointer"
+                    className="text-white text-3xl right-4 top-2 absolute cursor-pointer"
                     onClick={() => setExpandedUserId(null)}
                   >
                     &times;
