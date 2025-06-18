@@ -20,8 +20,7 @@ app.use(morgan('dev'));
 app.use('/user', userRouter);
 app.use('/task', taskRouter);
 
-// === Serve Vite Frontend (Assumes dist/ is inside backend/) ===
-const distPath = path.join(__dirname, 'dist'); // changed here
+const distPath = path.join(__dirname, 'dist');
 app.use(express.static(distPath));
 
 // === Base Route ===
