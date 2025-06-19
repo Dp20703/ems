@@ -29,7 +29,9 @@ const TaskListNumbers = ({ data }) => {
 
 const TaskListNumber = ({ title, count, color }) => {
   return (
-    <div className={`w-[45%] py-6 px-9 rounded-xl bg-${color}-500 hover:bg-${color}-600`}>
+    <div
+      className={`w-[45%] py-6 px-9 rounded-xl bg-${color}-500`}
+    >
       <h2 className="text-3xl font-semibold">{count}</h2>
       <h3 className="text-xl font-medium">{title}</h3>
     </div>
