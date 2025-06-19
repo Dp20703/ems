@@ -15,7 +15,7 @@ const TaskListNumbers = ({ data }) => {
         <TaskListNumber
           title="Accepted Task"
           count={data?.taskCount.Active}
-          color="yellow"
+          color="gray"
         />
         <TaskListNumber
           title="Failed Task"
@@ -30,7 +30,7 @@ const TaskListNumbers = ({ data }) => {
 const TaskListNumber = ({ title, count, color }) => {
   return (
     <div
-      className={`w-[45%] py-6 px-9 rounded-xl bg-${color}-500`}
+      className={`w-[45%] py-6 px-9 rounded-xl bg-${color}-500 hover:${color}-600 cursor-default`}
     >
       <h2 className="text-3xl font-semibold">{count}</h2>
       <h3 className="text-xl font-medium">{title}</h3>
